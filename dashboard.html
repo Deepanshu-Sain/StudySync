@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudySync - Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="assets/logo.svg" alt="StudySync Logo" class="logo">
+                <h2>StudySync</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active" data-tab="notes">
+                        <a href="#"><i class="fas fa-sticky-note"></i> Notes</a>
+                    </li>
+                    <li data-tab="tasks">
+                        <a href="#"><i class="fas fa-check-square"></i> Tasks</a>
+                    </li>
+                    <li data-tab="settings">
+                        <a href="#"><i class="fas fa-cog"></i> Settings</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="theme-toggle">
+                    <span class="theme-label">Dark Mode</span>
+                    <label class="switch">
+                        <input type="checkbox" id="themeToggle">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <button id="logoutBtn" class="btn btn-outline">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="dashboard-header">
+                <div class="mobile-menu">
+                    <button id="menuToggle"><i class="fas fa-bars"></i></button>
+                </div>
+                <div class="user-info">
+                    <span id="userName">Welcome, User</span>
+                </div>
+            </header>
+
+            <!-- Notes Section -->
+            <section id="notes-section" class="content-section active">
+                <div class="section-header">
+                    <h2>My Notes</h2>
+                    <button id="addNoteBtn" class="btn btn-primary"><i class="fas fa-plus"></i> Add Note</button>
+                </div>
+                <div class="search-bar">
+                    <input type="text" id="noteSearch" placeholder="Search notes...">
+                </div>
+                <div id="notesContainer" class="notes-grid">
+                    <!-- Notes will be dynamically added here -->
+                </div>
+            </section>
+
+            <!-- Tasks Section -->
+            <section id="tasks-section" class="content-section">
+                <div class="section-header">
+                    <h2>My Tasks</h2>
+                    <button id="addTaskBtn" class="btn btn-primary"><i class="fas fa-plus"></i> Add Task</button>
+                </div>
+                <div class="task-filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="pending">Pending</button>
+                    <button class="filter-btn" data-filter="completed">Completed</button>
+                </div>
+                <div id="tasksContainer" class="tasks-list">
+                    <!-- Tasks will be dynamically added here -->
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settings-section" class="content-section">
+                <div class="section-header">
+                    <h2>Settings</h2>
+                </div>
+                <div class="settings-container">
+                    <div class="settings-group">
+                        <h3>Account Settings</h3>
+                        <div class="setting-item">
+                            <label for="displayName">Display Name</label>
+                            <input type="text" id="displayName" placeholder="Your display name">
+                        </div>
+                        <div class="setting-item">
+                            <label for="userEmail">Email</label>
+                            <input type="email" id="userEmail" placeholder="Your email" disabled>
+                        </div>
+                        <button id="saveSettingsBtn" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal for adding/editing notes -->
+    <div id="noteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="noteModalTitle">Add New Note</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="noteForm">
+                    <input type="hidden" id="noteId">
+                    <div class="form-group">
+                        <label for="noteTitle">Title</label>
+                        <input type="text" id="noteTitle" placeholder="Note title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="noteContent">Content</label>
+                        <textarea id="noteContent" placeholder="Write your note here..." rows="6" required></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline" id="cancelNoteBtn">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="saveNoteBtn">Save Note</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for adding tasks -->
+    <div id="taskModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="taskModalTitle">Add New Task</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="taskForm">
+                    <input type="hidden" id="taskId">
+                    <div class="form-group">
+                        <label for="taskTitle">Task</label>
+                        <input type="text" id="taskTitle" placeholder="What needs to be done?" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline" id="cancelTaskBtn">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="saveTaskBtn">Save Task</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- jsPDF library for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/notes.js"></script>
+    <script src="js/tasks.js"></script>
+    <script>
+        // Debug script to identify any loading issues
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM fully loaded');
+            console.log('CSS Files:', Array.from(document.styleSheets).map(sheet => sheet.href));
+            console.log('JS Files loaded:', ['auth.js', 'dashboard.js', 'notes.js', 'tasks.js']);
+        });
+    </script>
+</body>
+</html> 
