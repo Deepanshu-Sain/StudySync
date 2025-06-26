@@ -1,6 +1,7 @@
 # StudySync - Productivity Dashboard
 
 StudySync is a clean, modern productivity dashboard designed for students and professionals. It features a responsive interface for managing notes and tasks with a focus on simplicity and usability.
+Live WebSite URL- https://study-sync-navy.vercel.app/
 
 ## Features
 
