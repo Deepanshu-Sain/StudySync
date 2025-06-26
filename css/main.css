@@ -1,0 +1,12 @@
+/* Simple test CSS file */
+:root {
+    --test-color: red;
+}
+
+.test-css-loaded {
+    background-color: blue !important;
+}
+
+body {
+    font-family: Arial, sans-serif;
+} 
